@@ -1,0 +1,86 @@
+link to ui dashboard in miro - https://miro.com/app/board/uXjVJm2k-B4=/
+
+Project stracture:
+
+backend/
+src/
+server.js → Express server + routes + SSE
+shipments.json → Fictitious sample shipments
+utilities/
+helpers.js → Small helper functions (dates, normalize stage, etc.)
+package.json
+
+---
+
+How to run
+
+Inside the backend folder:
+
+npm install
+npm run dev (or node src/server.js)
+
+Server runs at:
+
+http://localhost:4000
+
+---
+
+API Endpoints
+
+1 Get at-risk shipments
+GET /api/shipments/at-risk
+
+2️ Real-time updates (SSE)
+GET /api/shipments/at-risk/stream
+
+This keeps a live connection open so the front-end dashboard can update without refreshing.
+
+Example client code:
+
+const stream = new EventSource("http://localhost:4000/api/shipments/at-risk/stream");
+
+stream.onmessage = (ev) => {
+console.log("Update:", JSON.parse(ev.data));
+};
+
+---
+
+Delay Logic -
+
+The backend has a function:
+
+function isShipmentAtRisk(shipment)
+
+It takes one shipment and checks things like:
+
+How many days left until the promised delivery date
+
+How many hours the shipment stayed in the same stage
+
+If it is still in an early stage close to the deadline
+
+It returns:
+
+true -> shipment is at risk
+false -> shipment is not at risk
+
+This logic is used to detect delays and update the dashboard.
+
+Data Format (shipments.json)
+
+Each shipment looks like this:
+
+{
+"shipmentId": "LDG-1007",
+"destination": "Amsterdam, NL",
+"promisedDate": "2025-11-18",
+"currentStage": "Created",
+"hoursSinceScan": 48,
+"riskLevel": "high",
+"isDelayed": true,
+"serviceLevel": "Standard",
+"weight": 1.7,
+"category": "Clothing"
+}
+
+This is sample data only for the exercise.
