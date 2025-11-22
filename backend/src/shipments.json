@@ -2,7 +2,7 @@
   {
     "shipmentId": "LDG-1016",
     "destination": "Warsaw, PL",
-    "promisedDate": "2025-11-22",
+    "promisedDate": "2025-11-25",
     "currentStage": "Created",
     "hoursSinceScan": 1,
     "riskLevel": "none",
