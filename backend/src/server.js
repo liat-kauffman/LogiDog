@@ -117,4 +117,7 @@ function isShipmentAtRisk(shipment) {
   return false;
 }
 
-console.log(isShipmentAtRisk(shipments[5]));
+
+console.log("LDG-1004 at risk?", isShipmentAtRisk(shipments[3])); // expected: true
+console.log("LDG-1016 at risk?", isShipmentAtRisk(shipments[0])); // expected: false
+console.log("LDG-1001 at risk?", isShipmentAtRisk(shipments[8])); // expected: true
